@@ -12,17 +12,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.engsoft2.project.model.Cidade;
+
+/*
+ * Classe responsável em lidar com solicitacoes de confirmacao de matrícula
+ * e transferencia interna de alunos da rede 
+ * 
+ * @author Enrique Wicks, Mateus Barbosa e Mateus Carvalho
+ * */
+
 @Controller
 public class MatriculaController {
 	
 	@GetMapping("/aluno/transferencia")
     public String transferPage(Model model) {
-		List<String> cities = new ArrayList<String>();
-		cities.add("Salvador");
-		cities.add("Feira de Santana");
-		cities.add("Camaçari");
+		List<String> nomeCidades = new ArrayList<String>();
 		
-		model.addAttribute("cities", cities);
+		Cidade cidades = new Cidade();
+		nomeCidades = cidades.getCidades();
+		
+		List<String> nomeCidades2 = new ArrayList<String>(); //apagar quando tiver concluido
+		nomeCidades2.add("Salvador");						 //CidadeModel e ManipulaArquivo	
+		nomeCidades2.add("Feira de Santana");
+		nomeCidades2.add("Camaçari");
+		
+		model.addAttribute("cities", nomeCidades2);
 		
         return "transfer";
     }

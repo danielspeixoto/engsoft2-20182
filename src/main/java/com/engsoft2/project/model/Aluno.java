@@ -1,6 +1,8 @@
 package com.engsoft2.project.model;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class Aluno {
 
@@ -14,6 +16,17 @@ public class Aluno {
 	private Responsavel responsavel;
 	private String email;
 	private Historico historico;
+	private String path = "";
+	private List<String> alunos;
+	
+	public Aluno() {
+		
+	}
+	
+	public List<String> getAlunos(){
+		return alunos;
+		
+	}
 	
 	
 }
