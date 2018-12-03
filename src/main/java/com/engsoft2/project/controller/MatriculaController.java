@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.engsoft2.project.model.Aluno;
 import com.engsoft2.project.model.Cidade;
 
 /*
@@ -24,6 +25,8 @@ import com.engsoft2.project.model.Cidade;
 @Controller
 public class MatriculaController {
 	
+	private Aluno aluno = new Aluno("12345678");
+	
 	@GetMapping("/aluno/transferencia")
     public String transferPage(Model model) {
 		List<String> nomeCidades = new ArrayList<String>();
@@ -31,47 +34,48 @@ public class MatriculaController {
 		Cidade cidades = new Cidade();
 		nomeCidades = cidades.getCidades();
 		
-		List<String> nomeCidades2 = new ArrayList<String>(); //apagar quando tiver concluido
-		nomeCidades2.add("Salvador");						 //CidadeModel e ManipulaArquivo	
-		nomeCidades2.add("Feira de Santana");
-		nomeCidades2.add("Camaçari");
-		
-		model.addAttribute("cities", nomeCidades2);
+		model.addAttribute("cities", nomeCidades);
 		
         return "transfer";
     }
 	
 	@RequestMapping(value = "/aluno/perfil", method = RequestMethod.POST)
     public String storeTransfer(@RequestBody String request, Model model) {
-
-		model.addAttribute("name", "Fulano da Silva");
-		model.addAttribute("responsable", "Alguém da Silva");
-		model.addAttribute("phone", "(71) 99946-0910");
-		model.addAttribute("status", "Transferência em análise");
-		model.addAttribute("school", "Colégio Central, SSA - BA");
-		model.addAttribute("grade", "1º ano A");
+			
+		aluno.setPermanencia(1);
+		
+		model.addAttribute("name", aluno.getNome());
+		model.addAttribute("responsable", aluno.getResponsavelNome());
+		model.addAttribute("phone", aluno.getTelefone());
+		model.addAttribute("status", aluno.getStatusNome());
+		model.addAttribute("school", aluno.getEscolaNome());
+		model.addAttribute("grade", aluno.getSerie());
 		
 		return "profile";
     }
 	
 	@GetMapping("/aluno/criar/confirmar")	
     public String confirmePage(Model model) {
-		model.addAttribute("school", "Escola Suzanna Imabassahay");
-		model.addAttribute("city", "Salvador");
-		model.addAttribute("neihgborhood", "Barbalho");
+		ArrayList<String> informacoesEscola = aluno.getEscolaInformacoes();
+		
+		model.addAttribute("school", informacoesEscola.get(0));
+		model.addAttribute("city", informacoesEscola.get(1));
+		model.addAttribute("neihgborhood", informacoesEscola.get(2));
 		
         return "confirmate";
     }
 	
 	@RequestMapping(value = "/aluno/confirmar", method = RequestMethod.POST)
     public String storeConfirmate(@RequestBody String request, Model model) {
-        
-		model.addAttribute("name", "Fulano da Silva");
-		model.addAttribute("responsable", "Alguém da Silva");
-		model.addAttribute("phone", "(71) 99946-0910");
-		model.addAttribute("status", "Matrícula Confirmada");
-		model.addAttribute("school", "Colégio Central, SSA - BA");
-		model.addAttribute("grade", "1º ano A");
+		
+		aluno.setPermanencia(2);
+		
+		model.addAttribute("name", aluno.getNome());
+		model.addAttribute("responsable", aluno.getResponsavelNome());
+		model.addAttribute("phone", aluno.getTelefone());
+		model.addAttribute("status", aluno.getStatusNome());
+		model.addAttribute("school", aluno.getEscolaNome());
+		model.addAttribute("grade", aluno.getSerie());
 		
 		return "profile";
     }

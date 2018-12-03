@@ -14,7 +14,9 @@ public class Cidade {
 	
 	public Cidade() {
 		ManipulaArquivo manipulador = new ManipulaArquivo(caminho);
-		//TODO recuperar nome da cidade
+		cidades.add("Salvador");
+		cidades.add("Feira de Santana");
+		cidades.add("Camaçari");
 	}
 	
 	public List<String> getCidades(){
