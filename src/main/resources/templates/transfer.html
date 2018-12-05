@@ -193,7 +193,7 @@
 								<div class="box-body">
 									<div class="row">
 						    			<div class="col-md-8 offset-md-2">
-						    				<form action="/aluno/perfil" method="POST">
+						    				<form id="main-form" action="/aluno/perfil" method="POST">
 									            <div class="form-group row">
 									                <label for="city" class="col-sm-2 form-control-label">Cidade</label>
 									                <div class="col-sm-10">
@@ -252,6 +252,16 @@
 	<script src="/assets/js/jquery.mask.min.js"></script>
 	<script src="/assets/js/scripts.js"></script>
 	<script>
+        $('#main-form').on('submit', function(event) {
+            if($('#city').children('option:selected').val() == "null" || 
+                $('#neighborhood').children('option:selected').val() == "null" || 
+                $('#school').children('option:selected').val() == "null" || 
+                $('#reason').val() == "") {
+                    window.alert("Nem todas as opções foram preenchidas!");
+                    event.preventDefault();
+            }
+        });
+
         $('#city').on('change', function(event) {
             event.preventDefault();
             
